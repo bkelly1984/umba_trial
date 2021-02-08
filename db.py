@@ -8,8 +8,8 @@ class Db:
     This is a representation a sqlite3 database with modification hooks which will operate with generic_dao objects.
 
     Attributes:
-        max_records (int): the largest number of records that can possibly be handled by the database.
-        max_limit (int): the largest number of records to be returned in any query.
+        Db.max_records (int): the largest number of records that can possibly be handled by the database.
+        Db.max_limit (int): the largest number of records to be returned in any query.
     """
 
     max_records = pow(2, 64)
@@ -93,4 +93,3 @@ class Db:
         logging.info(f"Deleting {dao.table_name} table")
         self.cursor.execute(f"DROP TABLE {dao.table_name}")
         self.commit()
-

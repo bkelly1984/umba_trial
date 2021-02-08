@@ -6,10 +6,10 @@ from user_dao import UserDao
 
 total = 150
 git_username = "bkelly1984"
-#git_password = ""
+# git_password = ""
 url = 'https://api.github.com/users?accept=application/vnd.github.v3+json&per_page=100'
 
-#logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
 
 # Instantiate the database objects
 db = Db()
@@ -24,7 +24,7 @@ last_id = 0
 while count < total:
 
     # Get 100 user records
-    try :
+    try:
         response = requests.get(url + f'&since={last_id}', f'auth=({git_username}, {git_password})')
     except NameError:
         response = requests.get(url + f'&since={last_id}')

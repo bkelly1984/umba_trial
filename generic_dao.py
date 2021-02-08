@@ -1,14 +1,15 @@
 import logging
 
+
 class GenericDao:
     """
     This abstract class contains information and parameters to manipulate a database table.
 
      Attributes:
-            table_name (str): the name of this table in the database.
-            columns (list): the names of the columns in this table.
-            column_types (list): the data types of the columns in this table.
-            primary_key_index (int): the index of the table primary key.
+            GenericDao.table_name (str): the name of this table in the database.
+            GenericDao.columns (list): the names of the columns in this table.
+            GenericDao.column_types (list): the data types of the columns in this table.
+            GenericDao.primary_key_index (int): the index of the table primary key.
     """
 
     @property
@@ -143,11 +144,10 @@ class GenericDao:
                 order_string = f"{order_string} ASC"
         else:
             logging.warning(f"invalid sort_by column {sort_by} for table {self.table_name}")
+            order_string = f"{self.columns[0]} ASC"
 
         # Build the SQL -- two layers so it can be filtered by result numbers
-        sql_string = f"""SELECT {', '.join([f"a.{x}" for x in self.columns])}, (SELECT COUNT(*) FROM 
-                {self.table_name} b WHERE a.id >= b.id) as row_num FROM {self.table_name} a
-                WHERE row_num > ? AND row_num <= ? ORDER BY {order_string}"""
+        sql_string = f"SELECT {', '.join(self.columns)} FROM {self.table_name} ORDER BY {order_string} LIMIT ? OFFSET ?"
 
         logging.debug(f"Executing read: {sql_string}")
-        return db.cursor.execute(sql_string, (offset, offset + limit)).fetchall()
+        return db.cursor.execute(sql_string, (limit, offset)).fetchall()

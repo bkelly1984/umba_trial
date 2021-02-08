@@ -5,7 +5,7 @@ from db import Db
 from user_dao import UserDao
 
 app = Flask("user_api")
-#logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 
 @app.route('/')
@@ -63,7 +63,7 @@ def get_user():
     # Verify the order string
     if sort_by not in user_dao.columns:
         error_list.append(f"Unable to sort on column {sort_by} as it was not found")
-        order_string = user_dao.columns[0]
+        sort_by = user_dao.columns[0]
 
     # Sort in descending order when requested
     desc_flag = False
