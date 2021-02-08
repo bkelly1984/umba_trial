@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Umba Director of Engineering Python Test" />
+    <meta name="author" content="Brian Kelly" />
+    <title>Python Test</title>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+
+</head>
+<body>
+    <section id="content">
+        <h2>Github Users</h2>
+        <table id="user_table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Node Id</th>
+                    <th>Login</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+        </table>
+    </section>
+    <script>
+        $('#user_table').DataTable( {
+            serverSide: true,
+            ajax: '/user',
+            iDisplayLength: 25,
+            bFilter: false,
+            columns: [
+                {
+                    data: 1,
+                    name: "id"
+                },
+                {
+                    data: 2,
+                    name: "node_id"
+                },
+                {
+                    data: 0,
+                    name: "login",
+                    render: function(data, type, row, meta) {
+                        if (type != 'display') {
+                            return data
+                        }
+                        html = '<a href="' + row[4] + '">' + data + '</a>'
+                        html = '<a href="' + row[3] + '"><img src="' + row[3] + '" alt="avatar of ' + row[0] + '"' +
+                            'width="50" height="50" style="margin-right: 10px; object-fit: cover;"></a>' + html
+                        if (row[6] == 1) {
+                            html = html + '<img src="images/star.png" alt="admin user">'
+                        }
+                        return '<div style="display:flex; flex-wrap: nowrap; align-items: center;">' + html + '</div>'
+                    }
+                },
+                {
+                    data: 5,
+                    name: "type"
+                }
+            ]
+        } );
+    </script>
+    <footer>
+          <div class="footer-container">
+
+            <div class="footer-container-content">
+              <table style="padding: 20px; border-spacing: 20px;">
+                <tr>
+                    <td><h3>Brian Kelly:</h3></td>
+                  <td>
+                    <img src="images/world_icon.png" alt="Linked In Profile" />
+                  </td>
+                  <td>
+                    <a href="https://www.linkedin.com/in/brian-kelly-86777925/" target="_blank">LinkedIn Profile</a>
+                  </td>
+                  <td>
+                    <div id="mail_icon">
+                        <img src="images/mail_icon.png" alt="E-mail" />
+                    </div>
+                  </td>
+                  <td>
+                    <a href="mailto:bkelly1@mymail.mines.edu?Subject=That%20Was%20Terrific">brian@vitalcare.us</a>
+                  </td>
+                  <td>
+                    <img src="images/phone_icon.png" alt="Cell phone" />
+                  </td>
+                  <td>
+                    <em>(303) 429-9729</em>
+                  </td>
+                  <td>
+                    <img src="images/location_icon.png" alt="Location" />
+                  </td>
+                  <td>
+                    <a href="https://goo.gl/maps/yZDAs8EsGpdDgHPx5" target="_blank">
+                      <address>7677 Gray Way
+                      <br />Arvada, CO 80003</address>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+    </footer>
+</body>
+</html>
