@@ -145,8 +145,8 @@ class GenericDao:
             logging.warning(f"invalid sort_by column {sort_by} for table {self.table_name}")
 
         # Build the SQL -- two layers so it can be filtered by result numbers
-        sql_string = f"""SELECT {', '.join(self.columns)} FROM
-                (SELECT *, ROW_NUMBER () OVER (ORDER BY {order_string}) as row_num FROM {self.table_name})
+        sql_string = f"""SELECT {', '.join([f"a.{x}" for x in self.columns])}, (SELECT COUNT(*) FROM 
+                {self.table_name} b WHERE a.id >= b.id) as row_num FROM {self.table_name} a
                 WHERE row_num > ? AND row_num <= ? ORDER BY {order_string}"""
 
         logging.debug(f"Executing read: {sql_string}")

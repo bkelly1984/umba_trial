@@ -5,7 +5,7 @@ from db import Db
 from user_dao import UserDao
 
 app = Flask("user_api")
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 
 @app.route('/')
