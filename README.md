@@ -7,7 +7,7 @@
 **Estimated development time:** 16 hours
 
 
-#Programming Approach  
+# Programming Approach  
 At a high-level, the application uses a MVC architectural pattern for ease of comprehension and encapsulation. Since the view never needs to call the controller to initiate changes, both the view and the controller only communicate with the model (Figure 1). While an enterprise-class program would have separated these components into different packages, I left them combined as the view and controller are contained in only one file each.
 
 ![Fig 1](images/figure1.png)
@@ -16,10 +16,10 @@ At a high-level, the application uses a MVC architectural pattern for ease of co
 
 The model handles sorts and returns only the subset of data requested by the view, ensuring that clients remain responsive for large datasets. It could be easily expanded to include other parameters like search terms or multi-column sorts. Avatar images are left to the client to request so the table renders quickly. While I can optimize this further, this program emphasizes clean and readable code which is important when working in a group.
 
-##View  
+## View  
 The view is composed only of one file, index.html. This runs on the client side using Javascript with JQuery. For efficiency and to promote reusability, I used an open-source table implementation, DataTables, as its license allows corporate use.
 
-##Model  
+## Model  
 The bulk of the program is the model. I designed the model as an object-oriented microservice to highlight my architectural style. The model is extensible as common functionality resides in a generic database object which could be subclassed if new tables are added to the database. The flexibility of the design allows me to use the same classes for unit tests.
 
 Figure 2 shows the model interactions.
@@ -39,10 +39,10 @@ The model classes include:
 
 The model does not have a true CRUD REST API due to time and scope of the test. It only provides a custom-tailored API for the data table library.
 
-##Controller  
+## Controller  
 The controller is only one file, seed.py that reads user information from the GitHub API and passes it to the model. While this would normally be done through a CRUD REST API, I call create_user() in UserDao directly to keep the project simple. In addition, user data is transferred with a Python data structure instead of dedicated DTOs.
 
-#Next Steps  
+# Next Steps  
 Next steps to develop this as a commercial product:
 - Create tests for Flask routes
 - HTML and PNG files should be served by a dedicated web server
